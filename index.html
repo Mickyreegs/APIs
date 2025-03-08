@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        fetch("https://ci-swapi.herokuapp.com/api/")
+            .then(response => response.text()) //Promise 1
+            .then(data => displayData(data))
+            //To allow for a broken promise,  we also need to pass in a catch method that will handle the error  response.
+            .catch((e) => { 
+                console.error("Error: ", e); //console.error still logs to the console, but is used for more serious information
+            })
+
+        /*
+        We're going to create a new function in  our script called displayData: 
+        And this does just the same as before - it's going to take one parameter called “data”,
+        and then I'm going to copy the code that updates the content div, and paste it into our function.
+        So this is just a function that's going to do exactly the same as our anonymous callback function was doing before.
+        Now all I need to do is change my final “then”. So this time, I'm going to say call the displayData with the data parameter.
+        Now the reason that we do this, is it makes our code easier to understand,
+        and separates retrieving the data  from manipulating and displaying it. 
+        */
+        function displayData(data) {
+            document.getElementById("content").innerText = data;
+        }
+    </script>
+</body>
+</html>
